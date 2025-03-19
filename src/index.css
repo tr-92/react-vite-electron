@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --color-hotpink: #ff69b4;
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
