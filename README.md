@@ -1,12 +1,6 @@
-# Ollama UI
+# react-vite-electron
 
 This project integrates React with Vite and Electron.js, providing a fast development experience with Hot Module Replacement (HMR) and ESLint rules. It also supports Tailwind CSS 4.0 for styling.
-
-## Features
-
-- **React**: A JavaScript library for building user interfaces.
-- **Vite**: A build tool that provides a fast development environment.
-- **Electron.js**: A framework for building cross-platform desktop applications using web technologies.
 
 ## Getting Started
 
@@ -46,7 +40,8 @@ npm run build
 
 ### Next Steps
 
-- adding auto update with electron-updater
+- Adding support for macOS, and Linux
+- Adding updater support with electron-updater
 
 ## License
 
