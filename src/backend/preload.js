@@ -1,6 +1,6 @@
-import { contextBridge, ipcRenderer } from "electron";
+const { contextBridge, ipcRenderer } = require("electron");
 
 // include prelod.js dest in main.js to be recognized by electron
-contextBridge.exposeInMainWorld("myAPI", {
+contextBridge.exposeInMainWorld("electronAPI", {
   ping: message => ipcRenderer.send("ping", message),
 });

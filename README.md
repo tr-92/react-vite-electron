@@ -1,6 +1,6 @@
-# react-vite-electron
+# Ollama UI
 
-This project provides a minimal setup to integrate React with Vite and Electron.js, enabling a fast development experience with Hot Module Replacement (HMR) and ESLint rules.
+This project integrates React with Vite and Electron.js, providing a fast development experience with Hot Module Replacement (HMR) and ESLint rules. It also supports Tailwind CSS 4.0 for styling.
 
 ## Features
 
@@ -12,52 +12,41 @@ This project provides a minimal setup to integrate React with Vite and Electron.
 
 ### Prerequisites
 
-Make sure you have Node.js installed on your machine. You can download it from [nodejs.org](https://nodejs.org/).
+Ensure you have Node.js installed. Download it from [nodejs.org](https://nodejs.org/).
 
 ### Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
-   cd ollama-ui
+   git clone https://github.com/ereat/react-vite-electron.git
+   cd react-vite-electron
    ```
 
-2. Install the dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
 ### Running the Application
 
-To start the development server and Electron application simultaneously, run:
+Start the development server and Electron app:
 
 ```bash
 npm start
 ```
 
-This command will launch the Vite development server and the Electron application.
-
 ### Building for Production
 
-To create a production build of the application, run:
+Create a production build:
 
 ```bash
 npm run build
 ```
 
-This will generate the necessary files in the `dist` directory.
+### Next Steps
 
-## Expanding the ESLint Configuration
-
-If you are developing a production application, we recommend using TypeScript and enabling type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-
-## Official Plugins
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md): Uses [Babel](https://babeljs.io/) for Fast Refresh.
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc): Uses [SWC](https://swc.rs/) for Fast Refresh.
+- adding auto update with electron-updater
 
 ## License
 

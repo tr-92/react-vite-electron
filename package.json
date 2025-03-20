@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && electron-builder",
     "lint": "eslint .",
     "preview": "vite preview",
     "electron": "electron ./src/backend/main.js",
@@ -24,10 +24,29 @@
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
     "electron": "^35.0.2",
+    "electron-builder": "^25.1.8",
+    "electron-updater": "^6.3.9",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "vite": "^6.2.0"
+  },
+  "main": "./src/backend/main.js",
+  "build": {
+    "appId": "com.example.app",
+    "files": [
+      "src/backend/main.js",
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "extraMetadata": {
+      "main": "src/backend/main.js"
+    }
   }
 }
