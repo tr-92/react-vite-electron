@@ -2,6 +2,9 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
+import pkg from "electron-updater";
+const { autoUpdater } = pkg;
+
 // Get __dirname equivalent in ESM
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,13 +16,14 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1000,
     height: 720,
-    title: "Ollama UI",
-    backgroundColor: "#F8F8F8",
+    title: "My App",
+    backgroundColor: "#0f1111",
     roundedCorners: true,
     titleBarStyle: "hidden",
+    opacity: 1.0,
     titleBarOverlay: {
-      color: "#F8F8F8", // Background color of the title bar
-      symbolColor: "#6D6D6D", // Color of the window controls (minimize, maximize, close)
+      color: "#0f1111", // Background color of the title bar
+      symbolColor: "#454e50", // Color of the window controls (minimize, maximize, close)
       height: 30, // Height of the title bar
     },
     webPreferences: {
@@ -27,7 +31,7 @@ function createWindow() {
       contextIsolation: true,
       preload: preloadPath,
     },
-    icon: join(__dirname, "../assets/atom.png"),
+    icon: join(__dirname, "../assets/icon.png"),
   });
 
   if (app.isPackaged) {
@@ -38,7 +42,10 @@ function createWindow() {
   }
 }
 
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
+  checkForUpdates();
+});
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -53,6 +60,42 @@ app.on("activate", () => {
 });
 
 // Handle IPC messages from renderer
-ipcMain.on("ping", (event, msg) => {
-  console.log("Main process received:", msg); // Should log "Hello from the renderer!"
+ipcMain.handle("ping", (event, message) => {
+  console.log("Main process received:", message); // Should log "Hello from the renderer!"
+  return "Hello from the main process!";
 });
+
+// Expose version via IPC
+ipcMain.handle("get-app-version", () => {
+  return app.getVersion();
+});
+
+// Update logic (what happens when the user closes the app when a new update is downloading?)
+function checkForUpdates() {
+  autoUpdater.checkForUpdatesAndNotify();
+
+  autoUpdater.on("checking-for-update", () => {
+    console.log("Checking for updates...");
+  });
+
+  autoUpdater.on("update-available", info => {
+    console.log("Update available:", info.version);
+  });
+
+  autoUpdater.on("update-not-available", info => {
+    console.log("No update available:", info.version);
+  });
+
+  autoUpdater.on("download-progress", progress => {
+    console.log(`Download progress: ${progress.percent}%`);
+  });
+
+  autoUpdater.on("update-downloaded", info => {
+    console.log("Update downloaded:", info.version);
+    autoUpdater.quitAndInstall(true, true); // Silent install, restart app
+  });
+
+  autoUpdater.on("error", err => {
+    console.error("Update error:", err);
+  });
+}

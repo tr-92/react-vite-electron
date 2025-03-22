@@ -1,7 +1,9 @@
 {
-  "name": "ollama-ui",
+  "name": "react-vite-electron",
+  "productName": "RVE",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "./src/backend/main.js",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,10 +11,12 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "electron": "electron ./src/backend/main.js",
-    "start": "concurrently \"npm run dev\" \"npm run electron\""
+    "start": "concurrently \"npm run dev\" \"npm run electron\"",
+    "dist": "vite build && electron-builder --publish always"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.14",
+    "electron-updater": "^6.3.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.14"
@@ -25,18 +29,18 @@
     "concurrently": "^9.1.2",
     "electron": "^35.0.2",
     "electron-builder": "^25.1.8",
-    "electron-updater": "^6.3.9",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
     "vite": "^6.2.0"
   },
-  "main": "./src/backend/main.js",
   "build": {
     "appId": "com.example.app",
+    "productName": "Marine",
     "files": [
       "src/backend/main.js",
+      "src/backend/preload.js",
       "dist/**/*"
     ],
     "directories": {
@@ -47,6 +51,12 @@
     },
     "extraMetadata": {
       "main": "src/backend/main.js"
-    }
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://marine.run/updates/"
+      }
+    ]
   }
 }
