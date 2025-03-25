@@ -28,12 +28,12 @@ Ensure you have the following installed:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/ereat/react-vite-electron.git
-   cd react-vite-electron
+   git clone https://github.com/ereat/react-vite-electron.git my-app
+   cd my-app
    ```
 2. **Install dependencies:**
    ```bash
-   npm install
+   npm i
    ```
 
 ### Running the Application
