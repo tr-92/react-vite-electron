@@ -17,6 +17,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.14",
     "electron-updater": "^6.3.9",
+    "express": "^4.21.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.14"
@@ -37,7 +38,7 @@
   },
   "build": {
     "appId": "com.example.app",
-    "productName": "Marine",
+    "productName": "MyApp",
     "files": [
       "src/backend/main.js",
       "src/backend/preload.js",
@@ -47,7 +48,8 @@
       "output": "release"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "/icon.ico"
     },
     "extraMetadata": {
       "main": "src/backend/main.js"
@@ -55,7 +57,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "https://marine.run/updates/"
+        "url": "http://localhost:3000/updates/"
       }
     ]
   }

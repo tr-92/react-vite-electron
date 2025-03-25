@@ -17,6 +17,7 @@ release
 out
 build
 temp
+server/updates/*
 
 # Editor directories and files
 .vscode/*

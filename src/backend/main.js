@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -59,15 +59,13 @@ app.on("activate", () => {
   }
 });
 
-// Handle IPC messages from renderer
-ipcMain.handle("ping", (event, message) => {
-  console.log("Main process received:", message); // Should log "Hello from the renderer!"
-  return "Hello from the main process!";
-});
-
 // Expose version via IPC
 ipcMain.handle("get-app-version", () => {
   return app.getVersion();
+});
+
+ipcMain.on("ping", () => {
+  console.log("Hello from main!");
 });
 
 // Update logic (what happens when the user closes the app when a new update is downloading?)
@@ -78,8 +76,12 @@ function checkForUpdates() {
     console.log("Checking for updates...");
   });
 
-  autoUpdater.on("update-available", info => {
-    console.log("Update available:", info.version);
+  autoUpdater.on("update-available", () => {
+    dialog.showMessageBox({
+      type: "info",
+      title: "Update Available",
+      message: "A new version is available. Downloading now...",
+    });
   });
 
   autoUpdater.on("update-not-available", info => {
@@ -91,8 +93,19 @@ function checkForUpdates() {
   });
 
   autoUpdater.on("update-downloaded", info => {
-    console.log("Update downloaded:", info.version);
-    autoUpdater.quitAndInstall(true, true); // Silent install, restart app
+    dialog
+      .showMessageBox({
+        type: "info",
+        title: "Update Ready",
+        message: "Update downloaded. Restart the app to apply it?",
+        buttons: ["Restart", "Later"],
+      })
+      .then(response => {
+        if (response.response === 0) {
+          // User clicked "Restart"
+          autoUpdater.quitAndInstall();
+        }
+      });
   });
 
   autoUpdater.on("error", err => {
